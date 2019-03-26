@@ -1,0 +1,31 @@
+<doctype html>
+<title>Edit Product Movement</title>
+<h2>Edit Product Movement</h2>
+<form method="post" action="/update_product_movement">
+    <dl>
+		<p>
+            <label for="movementID">MovementID</label><br>
+			<input name="movementID" value="{{ row[0] }}" type="text" placeholder="productID" autocomplete="off" readonly>
+		</p>
+		<p>
+            <label for="fromLocation">fromLocation</label><br>
+			<input name="fromLocation" value="{{ row[1] }}" type="text" placeholder="fromLocation" autocomplete="off" >
+		</p>
+		<p>
+             <label for="toLocation">toLocation</label><br>
+			<input name="toLocation" value="{{ row[2] }}" type="text" placeholder="toLocation" autocomplete="off" >
+		</p>
+        <p>
+            <label for="productID">productID</label><br>
+			<input name="productID" value="{{ row[3] }}" type="text" placeholder="productID" autocomplete="off" readonly>
+		</p>
+        <p>
+             <label for="Quantity">Quantity</label><br>
+			<input name="Quantity" value="{{ row[4] }}" type="text" placeholder="Quantity" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+
+		<input type="submit" value="Submit">
+	</p>
+</form>

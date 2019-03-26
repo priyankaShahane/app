@@ -1,0 +1,31 @@
+
+<h2>Add Location</h2>
+<form method="post" action="/add_location">
+    <dl>
+		<p>
+            <label for="id">locationID</label><br>
+			<input name="locationID" value="" type="text" placeholder="locationID" autocomplete="off" required>
+		</p>
+		<p>
+             <label for="locationName">locationName</label><br>
+               <select name="locationName">
+        <option value="Aurangabad">Aurangabad</option>
+        <option value="Hydrabad">Hydrabad</option>
+        <option value="Pune">Pune</option>
+        <option value="Nanded">Nanded</option>
+             </select>
+
+		</p>
+		<p>
+            <label for="store">store</label><br>
+			<input name="Store" value="" type="text" placeholder="Store" autocomplete="off" required>
+		</p>
+        <p>
+             <label for="productID">productID</label><br>
+			<input name="productID" value="" placeholder="productID" autocomplete="off" type="text" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>

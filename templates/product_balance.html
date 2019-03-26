@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body%}
+<h1>Welcome to product_Balance</h1>
+
+<p><a href="{{ url_for('.product_balance') }}"> Show Product Movement Report</a></p>
+ <table style="width:60%" border="1">
+  <tr>
+    <th>Productname</th>
+    <th>Location</th>
+    <th>Quantity</th>
+  </tr>
+    <tbody>
+     {%- for items in row %}
+    <tr>
+    {%- for item in items %}
+
+       <td>{{ item }}</td>
+    {%- endfor %}
+    </tr>
+ {%- endfor %}
+ </tbody>
+ </table>
+
+
+{% endblock%}

@@ -1,0 +1,27 @@
+<doctype html>
+<title>Edit Location</title>
+<h2>Edit Location</h2>
+<form method="post" action="/update_location">
+    <dl>
+		<p>
+             <label for="id">locationID</label><br>
+			<input name="id" value="{{ row['locationID'] }}" type="text" placeholder="productID" autocomplete="off" readonly>
+		</p>
+		<p>
+            <label for="locationName">locationName</label><br>
+			<input name="locationName" value="{{ row['locationName'] }}" type="text" placeholder="productName" autocomplete="off" required>
+		</p>
+		<p>
+            <label for="store">store</label><br>
+			<input name="store" value="{{ row['store'] }}" type="text" placeholder="quantity" autocomplete="off" required>
+		</p>
+        <p>
+            <label for="productID">productID</label><br>
+			<input name="productID" value="{{ row['productID'] }}" type="text" placeholder="cost" autocomplete="off" readonly>
+		</p>
+    </dl>
+    <p>
+
+		<input type="submit" value="Submit">
+	</p>
+</form>

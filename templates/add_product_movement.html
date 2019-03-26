@@ -1,0 +1,41 @@
+
+<h2>Add Product Movement</h2>
+<form method="post" action="/add_product_movement">
+    <dl>
+		<p>
+            <label for="movementID">MovementID</label><br>
+			<input name="movementID" value="" type="text" placeholder="movementID" autocomplete="off" required>
+		</p>
+		<p>
+             <label for="fromLocation">fromLocation</label><br>
+            <select name="fromLocation">
+        <option value="Aurangabad">Aurangabad</option>
+        <option value="Hydrabad">Hydrabad</option>
+        <option value="Pune">Pune</option>
+        <option value="Nanded">Nanded</option>
+             </select>
+
+		</p>
+		<p>
+            <label for="toLocation">toLocation</label><br>
+            <select name="toLocation">
+        <option value="Aurangabad">Aurangabad</option>
+        <option value="Hydrabad">Hydrabad</option>
+        <option value="Pune">Pune</option>
+        <option value="Nanded">Nanded</option>
+             </select>
+
+		</p>
+        <p>
+            <label for="productID">productID</label><br>
+			<input name="productID" value="" placeholder="productID" autocomplete="off" type="text" required>
+		</p>
+        <p>
+                 <label for="Quantity">Quantity</label><br>
+			<input name="Quantity" value="" placeholder="Quantity" autocomplete="off" type="text" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>

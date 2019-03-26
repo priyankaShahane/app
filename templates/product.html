@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body%}
+
+<h1>Welcome to product</h1>
+
+<p><a href="{{ url_for('.add_product_view') }}"> Add Product </a></p>
+
+
+{{ table }}
+
+{% endblock%}

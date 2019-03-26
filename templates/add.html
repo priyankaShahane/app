@@ -1,0 +1,32 @@
+<doctype html>
+
+<h2>Add Product</h2>
+<form method="post" action="/add">
+    <dl>
+		<p>
+            <label for="productID">productID</label><br>
+			<input name="productID" value="" type="text" placeholder="ProductID" autocomplete="off" required>
+		</p>
+		<p>
+             <label for="productName">productName</label><br>
+               <select name="productName" >
+        <option value="Laptop">Laptop</option>
+        <option value="Computer">Computer</option>
+        <option value="Fridge">Fridge</option>
+        <option value="AC">AC</option>
+             </select>
+
+		</p>
+		<p>
+            <label for="Quantity">Quantity</label><br>
+			<input name="quantity" value="" type="text" placeholder="Quantity" autocomplete="off" required>
+		</p>
+        <p>
+             <label for="cost">cost</label><br>
+			<input name="cost" value="" type="text" placeholder="Cost" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
