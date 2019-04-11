@@ -36,6 +36,10 @@ First create database in Mysql using following command:
 	source /home/assc/Downloads/app/app-master/sql_file.sql   ////this file is already in that folder
 /////////////////It will create all required tables with data////////////////////
 
+(4) You need to add database connection details in config.cfg
+
+    MYSQL_HOST,MYSQL_USER,MYSQL_PASSWORD,MYSQL_DB   //ADD you mysql username password and other details
+
 (4) Run the following command in active vertual environment:
 
      python app.py
