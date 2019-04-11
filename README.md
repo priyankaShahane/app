@@ -23,11 +23,13 @@ activate the virtual enviorment by using following command
        source venv\Script\activate
 
 
-(2) pip install -r requirement.txt   (this file is already in folder)
-///////////////It will install all required modules///////////////////
+(2) 
+///////////////It will install all required modules///////////////////:
+	pip install -r requirement.txt   (this file is already in folder)
 
 (3) In your command prompt run following command for IMPORTING DATABASE
-First create database in Mysql using following command
+First create database in Mysql using following command:
+
         create database inventory_management;
 	use inventory_management;
 	source /home/assc/Downloads/app/app-master/sql_file.sql   ////this file is already in that folder
