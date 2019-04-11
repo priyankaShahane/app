@@ -25,6 +25,7 @@ activate the virtual enviorment by using following command
 
 (2) 
 ///////////////It will install all required modules///////////////////:
+
 	pip install -r requirement.txt   (this file is already in folder)
 
 (3) In your command prompt run following command for IMPORTING DATABASE
@@ -35,7 +36,8 @@ First create database in Mysql using following command:
 	source /home/assc/Downloads/app/app-master/sql_file.sql   ////this file is already in that folder
 /////////////////It will create all required tables with data////////////////////
 
-(4) Run the following command in active vertual environment
+(4) Run the following command in active vertual environment:
+
      python app.py
 
 (5) First You can Register in register page and then u can login
