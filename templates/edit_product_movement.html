@@ -1,31 +1,43 @@
-<doctype html>
-<title>Edit Product Movement</title>
-<h2>Edit Product Movement</h2>
-<form method="post" action="/update_product_movement">
-    <dl>
-		<p>
-            <label for="movementID">MovementID</label><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='f4.css') }}" >
+
+</head>
+<body>
+<div id="main">
+<div id="first">
+<form action="/update_product_movement" method="post">
+<h1>Edit Product Movement</h1>
+<label for="movementID">MovementID</label><br>
 			<input name="movementID" value="{{ row[0] }}" type="text" placeholder="productID" autocomplete="off" readonly>
-		</p>
-		<p>
+
             <label for="fromLocation">fromLocation</label><br>
 			<input name="fromLocation" value="{{ row[1] }}" type="text" placeholder="fromLocation" autocomplete="off" >
-		</p>
-		<p>
+
              <label for="toLocation">toLocation</label><br>
 			<input name="toLocation" value="{{ row[2] }}" type="text" placeholder="toLocation" autocomplete="off" >
-		</p>
-        <p>
+
             <label for="productID">productID</label><br>
 			<input name="productID" value="{{ row[3] }}" type="text" placeholder="productID" autocomplete="off" readonly>
-		</p>
-        <p>
-             <label for="Quantity">Quantity</label><br>
+	 <label for="Quantity">Quantity</label><br>
 			<input name="Quantity" value="{{ row[4] }}" type="text" placeholder="Quantity" autocomplete="off" required>
-		</p>
-    </dl>
-    <p>
-
-		<input type="submit" value="Submit">
-	</p>
+<input type="submit" value="Submit">
 </form>
+</div>
+</div>
+</body>
+
+
+</html>
+
+
+
+
+
+
+

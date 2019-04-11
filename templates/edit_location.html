@@ -1,27 +1,44 @@
-<doctype html>
-<title>Edit Location</title>
-<h2>Edit Location</h2>
-<form method="post" action="/update_location">
-    <dl>
-		<p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='f4.css') }}" >
+
+</head>
+<body>
+<div id="main">
+<div id="first">
+<form action="/update_location" method="post">
+<h1>Edit Location</h1>
+
              <label for="id">locationID</label><br>
 			<input name="id" value="{{ row['locationID'] }}" type="text" placeholder="productID" autocomplete="off" readonly>
-		</p>
-		<p>
+
             <label for="locationName">locationName</label><br>
 			<input name="locationName" value="{{ row['locationName'] }}" type="text" placeholder="productName" autocomplete="off" required>
-		</p>
-		<p>
+
             <label for="store">store</label><br>
 			<input name="store" value="{{ row['store'] }}" type="text" placeholder="quantity" autocomplete="off" required>
-		</p>
-        <p>
+
             <label for="productID">productID</label><br>
 			<input name="productID" value="{{ row['productID'] }}" type="text" placeholder="cost" autocomplete="off" readonly>
-		</p>
-    </dl>
-    <p>
 
-		<input type="submit" value="Submit">
-	</p>
+<input type="submit" value="Submit">
 </form>
+</div>
+</div>
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+

@@ -9,14 +9,18 @@ from tables import Results
 from tables import Result
 from tables import Result1
 
+
 from datetime import datetime
-engine = create_engine("mysql+pymysql://root:root123456@localhost/inventory_management")
-# (mysql+pymysql://username:password@localhost/databasename)
-db = scoped_session(sessionmaker(bind=engine))
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.permanent_session_lifetime=timedelta(minutes=8)
+app.config.from_pyfile('config.cfg')
+
+engine = create_engine('mysql+pymysql://'+app.config['MYSQL_USER']+':'+app.config['MYSQL_PASSWORD']+'@'+app.config['MYSQL_HOST']+'/'+app.config['MYSQL_DB'])
+# (mysql+pymysql://username:password@localhost/databasename)
+db = scoped_session(sessionmaker(bind=engine))
 
 
 @app.route('/new_product')
@@ -46,7 +50,7 @@ def add_product_movement():
             if Quantitydata1 :
                 quant = int(Quantitydata1[0])
                 Quantitydata2 = db.execute(
-                        "SELECT Quantity FROM product_movement WHERE (productID=:productID) AND (fromLocation=:fromLocation OR toLocation=:toLocation)",
+                        "SELECT Quantity FROM product_movement WHERE (productID=:productID) AND (fromLocation=:toLocation OR toLocation=:toLocation)",
                         {"productID": productID, "fromLocation": toLocation, "toLocation": toLocation}).fetchone()
                 Quantity = int(Quantity)
                 movementID1 = int(movementID) + 1
@@ -57,6 +61,7 @@ def add_product_movement():
                                 {"movementID": movementID, "fromLocation": fromLocation, "productID": productID,
                                  "Quantity": Subtract})
                     db.commit()
+
                     if Quantitydata2:
                         Quantity = int(Quantity)
                         quantity1=int(Quantitydata2[0])
@@ -68,6 +73,39 @@ def add_product_movement():
                                 {"movementID": movementID1, "toLocation": toLocation, "productID": productID,
                                  "Quantity": Quantity})
                     db.commit()
+                    pn = db.execute("select productName from product_table WHERE productID=:productID",
+                                    {"productID": productID}).fetchone()
+                    product_name = pn[0]
+                    pn1 = db.execute(
+                            "select product_name from product_balance WHERE (location_name=:fromLocation) AND  (productID=:productID)",
+                            {"fromLocation": fromLocation,"productID": productID}).fetchone()
+                    db.commit()
+                    if pn1:
+                        db.execute("UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:fromLocation) AND  (productID=:productID) ",
+                                   {"Quantity": Subtract,"fromLocation": fromLocation,"productID": productID})
+                        db.commit()
+                    else:
+
+                        db.execute(
+                            "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:fromLocation,:Quantity,:productID)",
+                            {"product_name": product_name, "fromLocation": fromLocation, "Quantity": Subtract,
+                             "productID": productID})
+                        db.commit()
+
+                    pn2 = db.execute(
+                            "select product_name from product_balance WHERE (location_name=:toLocation) AND  (productID=:productID)",
+                            {"toLocation": toLocation,"productID": productID}).fetchone()
+                    db.commit()
+
+                    if pn2:
+                        db.execute("UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:toLocation) AND  (productID=:productID) ",
+                                   {"Quantity": Quantity,"toLocation": toLocation,"productID": productID})
+                        db.commit()
+                    else:
+                        db.execute(
+                            "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:toLocation,:Quantity,:productID)",
+                            {"product_name": product_name, "toLocation": toLocation, "Quantity": Quantity,"productID": productID})
+                        db.commit()
                     r = db.execute("select MAX(locationID) from location_table").fetchone()
                     db.commit()
                     locationID1 = r[0]
@@ -90,6 +128,42 @@ def add_product_movement():
                                 {"movementID": movementID1, "toLocation": toLocation, "productID": productID,
                                  "Quantity": Quantity})
                     db.commit()
+                    pn = db.execute("select productName from product_table WHERE productID=:productID",
+                                    {"productID": productID}).fetchone()
+                    product_name = pn[0]
+                    pn1 = db.execute(
+                        "select product_name from product_balance WHERE (location_name=:fromLocation) AND  (productID=:productID)",
+                        {"fromLocation": fromLocation, "productID": productID}).fetchone()
+                    db.commit()
+                    if pn1:
+                        db.execute(
+                            "UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:fromLocation) AND  (productID=:productID) ",
+                            {"Quantity": Subtract, "fromLocation": fromLocation, "productID": productID})
+                        db.commit()
+                    else:
+
+                        db.execute(
+                            "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:fromLocation,:Quantity,:productID)",
+                            {"product_name": product_name, "fromLocation": fromLocation, "Quantity": Subtract,
+                             "productID": productID})
+                        db.commit()
+
+                    pn2 = db.execute(
+                        "select product_name from product_balance WHERE (location_name=:toLocation) AND  (productID=:productID)",
+                        {"toLocation": toLocation, "productID": productID}).fetchone()
+                    db.commit()
+
+                    if pn2:
+                        db.execute(
+                            "UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:toLocation) AND  (productID=:productID) ",
+                            {"Quantity": Quantity, "toLocation": toLocation, "productID": productID})
+                        db.commit()
+                    else:
+                        db.execute(
+                            "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:toLocation,:Quantity,:productID)",
+                            {"product_name": product_name, "toLocation": toLocation, "Quantity": Quantity,
+                             "productID": productID})
+                        db.commit()
                     r = db.execute("select MAX(locationID) from location_table").fetchone()
                     db.commit()
                     locationID1 = r[0]
@@ -122,6 +196,43 @@ def add_product_movement():
                             {"movementID": movementID1, "toLocation": toLocation, "productID": productID,
                             "Quantity": Quantity})
                         db.commit()
+
+                        pn = db.execute("select productName from product_table WHERE productID=:productID",
+                                        {"productID": productID}).fetchone()
+                        product_name = pn[0]
+                        pn1 = db.execute(
+                            "select product_name from product_balance WHERE (location_name=:fromLocation) AND  (productID=:productID)",
+                            {"fromLocation": fromLocation, "productID": productID}).fetchone()
+                        db.commit()
+                        if pn1:
+                            db.execute(
+                                "UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:fromLocation) AND  (productID=:productID) ",
+                                {"Quantity": Subtract, "fromLocation": fromLocation, "productID": productID})
+                            db.commit()
+                        else:
+
+                            db.execute(
+                                "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:fromLocation,:Quantity,:productID)",
+                                {"product_name": product_name, "fromLocation": fromLocation, "Quantity": Subtract,
+                                 "productID": productID})
+                            db.commit()
+
+                        pn2 = db.execute(
+                            "select product_name from product_balance WHERE (location_name=:toLocation) AND  (productID=:productID)",
+                            {"toLocation": toLocation, "productID": productID}).fetchone()
+                        db.commit()
+
+                        if pn2:
+                            db.execute(
+                                "UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:toLocation) AND  (productID=:productID) ",
+                                {"Quantity": Quantity, "toLocation": toLocation, "productID": productID})
+                            db.commit()
+                        else:
+                            db.execute(
+                                "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:toLocation,:Quantity,:productID)",
+                                {"product_name": product_name, "toLocation": toLocation, "Quantity": Quantity,
+                                 "productID": productID})
+                            db.commit()
                         r = db.execute("select MAX(locationID) from location_table").fetchone()
                         db.commit()
                         locationID1 = r[0]
@@ -142,6 +253,43 @@ def add_product_movement():
                             {"movementID": movementID1, "toLocation": toLocation, "productID": productID,
                             "Quantity": Quantity})
                         db.commit()
+                        pb = db.execute(
+                            "select product_name from product_balance WHERE (productID=:productID) AND (location_name=:fromLocation OR location_name=:toLocation)",
+                            {"productID": productID, "fromLocation": fromLocation, "toLocation": toLocation}).fetchone()
+                        db.commit()
+                        if pb:
+                            pn1 = db.execute(
+                                "select product_name from product_balance WHERE (location_name=:fromLocation) AND  (productID=:productID)",
+                                {"fromLocation": fromLocation, "productID": productID}).fetchone()
+                            db.commit()
+                            pn2 = db.execute(
+                                "select product_name from product_balance WHERE (location_name=:toLocation) AND  (productID=:productID)",
+                                {"toLocation": toLocation, "productID": productID}).fetchone()
+                            db.commit()
+                            if pn1:
+                                db.execute(
+                                    "UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:fromLocation) AND  (productID=:productID) ",
+                                    {"Quantity": Subtract, "productID": productID})
+                                db.commit()
+                            if pn2:
+                                db.execute(
+                                    "UPDATE product_balance SET Quantity=:Quantity WHERE (location_name=:toLocation) AND  (productID=:productID) ",
+                                    {"Quantity": Quantity, "productID": productID})
+                                db.commit()
+                        else:
+                            pn = db.execute("select productName from product_table WHERE productID=:productID",
+                                            {"productID": productID}).fetchone()
+                            product_name = pn[0]
+                            db.execute(
+                                "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:fromLocation,:Quantity,:productID)",
+                                {"product_name": product_name, "fromLocation": fromLocation, "Quantity": Subtract,
+                                 "productID": productID})
+                            db.commit()
+                            db.execute(
+                                "INSERT INTO product_balance(product_name,location_name,Quantity,productID)VALUES(:product_name,:toLocation,:Quantity,:productID)",
+                                {"product_name": product_name, "toLocation": toLocation, "Quantity": Quantity,
+                                 "productID": productID})
+                            db.commit()
                         r = db.execute("select MAX(locationID) from location_table").fetchone()
                         db.commit()
                         locationID1 = r[0]
@@ -183,7 +331,8 @@ def add_location():
 
 @app.route('/product_balance', methods=["GET", "POST"])
 def product_balance():
-    row = db.execute("SELECT  a.productName,b.locationName,c.Quantity from product_table a inner join location_table b on a.productID=b.productID inner join product_movement c on  (b.productID=c.productID and b.locationName=c.fromLocation) or (b.productID=c.productID and b.locationName=c.toLocation)").fetchall()
+    row = db.execute("select * from product_balance").fetchall()
+    db.commit()
     if row:
         return render_template('product_balance.html' ,row=row)
     else:
@@ -205,12 +354,35 @@ def add_product():
             return redirect(url_for('product'))
         else:
             flash("Error while adding product", "danger")
+    return render_template('product.html')
 
 
 
-
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def home():
+    if request.method == "POST":
+        username = request.form.get("name")
+        password = request.form.get("password")
+
+        usernamedata = db.execute("SELECT username FROM users WHERE username=:username",
+                                  {"username": username}).fetchone()
+        passwordata = db.execute("SELECT password FROM users WHERE username=:username",
+                                 {"username": username}).fetchone()
+
+        if usernamedata is None:
+            flash("no username", "danger")
+            return render_template('home.html')
+        else:
+            for password_data in passwordata:
+                if sha256_crypt.verify(password, password_data):
+                    session["log"] = True
+
+                    flash("You are now login", "success")
+                    return redirect(url_for('product'))
+
+                else:
+                    flash("incorrect password ", "danger")
+                    return render_template('home.html')
     return render_template('home.html')
 
 
@@ -333,7 +505,7 @@ def edit_product_movement_view(id):
 @app.route('/update', methods=["GET", "POST"])
 def update_product():
     if request.method == "POST":
-        productID = request.form.get("id")
+        productID = request.form.get("productID")
         productName = request.form.get("productName")
         Quantity = request.form.get("Quantity")
         cost = request.form.get("cost")
@@ -386,7 +558,7 @@ def update_product_movement():
                     #for r1 in r:
                     locationID1 = r[0]
                     locationID=int(locationID1)+1
-                    flash(locationID)
+                   # flash(locationID)
                     db.execute(
                         "INSERT INTO location_table(locationID,locationName,store,productID)VALUES(:locationID,:locationName,:store,:productID)",
                         {"locationID": locationID, "locationName": toLocation,"store":" ","productID": productID})
@@ -407,7 +579,7 @@ def update_product_movement():
                     # for r1 in r:
                     locationID1 = r[0]
                     locationID = int(locationID1) + 1
-                    flash(locationID)
+                  #  flash(locationID)
                     db.execute(
                         "INSERT INTO location_table(locationID,locationName,store,productID)VALUES(:locationID,:locationName,:store,:productID)",
                         {"locationID": locationID, "locationName": toLocation, "store": " ", "productID": productID})

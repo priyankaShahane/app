@@ -5,14 +5,17 @@
 <p><a href="{{ url_for('.product_balance') }}"> Show Product Movement Report</a></p>
  <table style="width:60%" border="1">
   <tr>
+      <th>ID</th>
     <th>Productname</th>
     <th>Location</th>
     <th>Quantity</th>
+      <th>productID</th>
   </tr>
     <tbody>
      {%- for items in row %}
     <tr>
     {%- for item in items %}
+
 
        <td>{{ item }}</td>
     {%- endfor %}

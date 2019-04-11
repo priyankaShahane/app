@@ -1,36 +1,36 @@
-<doctype html>
-<title>Edit Product</title>
-<h2>Edit Product</h2>
-<form method="post" action="/update">
-    <dl>
-		<p>
-             <label for="productID">productID</label><br>
-			<input name="id" value="{{ row['productID'] }}" type="text" placeholder="productID" autocomplete="off" readonly>
-		</p>
-		<p>
-             <label for="productName">productName</label><br>
-			<input name="productName" value="{{ row['productName'] }}" type="text" placeholder="productName" autocomplete="off" required>
-		</p>
-		<p>
-             <label for="Quantity">Quantity</label><br>
-			<input name="Quantity" value="{{ row['Quantity'] }}" type="text" placeholder="quantity" autocomplete="off" required>
-		</p>
-        <p>
-             <label for="cost">cost</label><br>
-			<input name="cost" value="{{ row['cost'] }}" type="text" placeholder="cost" autocomplete="off" required>
-		</p>
-    </dl>
-    <p>
-
-		<input type="submit" value="Submit">
-	</p>
-</form>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='f4.css') }}" >
+
 </head>
 <body>
+<div id="main">
+<div id="first">
+<form action="/update" method="post">
+<h1>Edit Product</h1>
+<label for="productID">productID</label><br>
+			<input name="productID" value="{{ row['productID'] }}" type="text" placeholder="ProductID" autocomplete="off" readonly>
 
+<label for="productName">productName</label><br>
+			<input name="productName" value="{{ row['productName'] }}" type="text" placeholder="productName" autocomplete="off" required>
+
+<label for="Quantity">Quantity</label><br>
+			<input name="Quantity" value="{{ row['Quantity'] }}" type="text" placeholder="quantity" autocomplete="off" required>
+<label for="cost">cost</label><br>
+			<input name="cost" value="{{ row['cost'] }}" type="text" placeholder="cost" autocomplete="off" required>
+<input type="submit" value="Submit">
+</form>
+</div>
+</div>
 </body>
+
+
 </html>
+
+
+

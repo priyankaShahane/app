@@ -1,31 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<h2>Add Location</h2>
-<form method="post" action="/add_location">
-    <dl>
-		<p>
-            <label for="id">locationID</label><br>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='f4.css') }}" >
+
+</head>
+<body>
+<div id="main">
+<div id="first">
+<form action="/add_location" method="post">
+<h1>Add Location</h1>
+<label for="id">locationID</label><br>
 			<input name="locationID" value="" type="text" placeholder="locationID" autocomplete="off" required>
-		</p>
-		<p>
-             <label for="locationName">locationName</label><br>
-               <select name="locationName">
-        <option value="Aurangabad">Aurangabad</option>
-        <option value="Hydrabad">Hydrabad</option>
-        <option value="Pune">Pune</option>
-        <option value="Nanded">Nanded</option>
-             </select>
 
-		</p>
-		<p>
-            <label for="store">store</label><br>
+       <label for="locationName">locationName</label><br>
+          <input name="locationName" value="" type="text" placeholder="locationName" autocomplete="off" required>
+
+<label for="store">store</label><br>
 			<input name="Store" value="" type="text" placeholder="Store" autocomplete="off" required>
-		</p>
-        <p>
-             <label for="productID">productID</label><br>
+ <label for="productID">productID</label><br>
 			<input name="productID" value="" placeholder="productID" autocomplete="off" type="text" required>
-		</p>
-    </dl>
-    <p>
-		<input type="submit" value="Submit">
-	</p>
+<input type="submit" value="Submit">
 </form>
+</div>
+</div>
+</body>
+
+
+</html>
+
+
+

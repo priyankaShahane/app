@@ -1,32 +1,35 @@
-<doctype html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<h2>Add Product</h2>
-<form method="post" action="/add">
-    <dl>
-		<p>
-            <label for="productID">productID</label><br>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='f4.css') }}" >
+
+</head>
+<body>
+<div id="main">
+<div id="first">
+<form action="/add" method="post">
+<h1>Add Product</h1>
+<label for="productID">productID</label><br>
 			<input name="productID" value="" type="text" placeholder="ProductID" autocomplete="off" required>
-		</p>
-		<p>
-             <label for="productName">productName</label><br>
-               <select name="productName" >
-        <option value="Laptop">Laptop</option>
-        <option value="Computer">Computer</option>
-        <option value="Fridge">Fridge</option>
-        <option value="AC">AC</option>
-             </select>
 
-		</p>
-		<p>
-            <label for="Quantity">Quantity</label><br>
+
+        <label for="productName">productName</label><br>
+            <input name="productName" value="" type="text" placeholder="productName" autocomplete="off" required>
+<label for="Quantity">Quantity</label><br>
 			<input name="quantity" value="" type="text" placeholder="Quantity" autocomplete="off" required>
-		</p>
-        <p>
-             <label for="cost">cost</label><br>
+   <label for="cost">cost</label><br>
 			<input name="cost" value="" type="text" placeholder="Cost" autocomplete="off" required>
-		</p>
-    </dl>
-    <p>
-		<input type="submit" value="Submit">
-	</p>
+<input type="submit" value="Submit">
 </form>
+</div>
+</div>
+</body>
+
+
+</html>
+
+
